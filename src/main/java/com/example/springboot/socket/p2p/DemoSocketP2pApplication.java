@@ -1,5 +1,8 @@
 package com.example.springboot.socket.p2p;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +16,12 @@ public class DemoSocketP2pApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Peer peer = new Peer();
-		peer.start();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("> enter username and port: ");
+		String[] setupValues = bufferedReader.readLine().split(" ");
+		ServerThread serverThread = new ServerThread(setupValues[1]);
+		serverThread.start();
+		new Peer().updateListenToPeers(bufferedReader, setupValues[0], serverThread);
 	}
 
 }

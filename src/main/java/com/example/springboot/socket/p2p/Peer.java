@@ -1,7 +1,6 @@
 package com.example.springboot.socket.p2p;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.Socket;
 
@@ -9,15 +8,6 @@ import javax.json.Json;
 
 public class Peer {
 
-	public void start() throws Exception {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("> enter username and port: ");
-		String[] setupValues = bufferedReader.readLine().split(" ");
-		ServerThread serverThread = new ServerThread(setupValues[1]);
-		serverThread.start();
-		new Peer().updateListenToPeers(bufferedReader, setupValues[0], serverThread);
-	}
-	
 	public void updateListenToPeers(BufferedReader bufferedReader, String username, ServerThread serverThread)
 		throws Exception {
 		System.out.println("> enter {space separated} hostname:port ");
